@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"  standalone="no"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<plugins>
+		<plugin interceptor="com.bbdig.core.interceptor.PaginationInterceptor">
+			<property name="dialect" value="mysql" />
+			<property name="pageSqlId" value=".*[Pagination selectPage].*" />
+		</plugin>
+		<plugin interceptor="com.bbdig.core.interceptor.PrintSqlInterceptor">
+		</plugin>
+	</plugins>
+	<mappers>
+		<mapper resource="mybatis/sqlmap/UserMapper.xml" />
+		<mapper resource="mybatis/sqlmap/PostMapper.xml" />
+		<mapper resource="mybatis/sqlmap/PostViewMapper.xml" />
+	 </mappers>
+</configuration>

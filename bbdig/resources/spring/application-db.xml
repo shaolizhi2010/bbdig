@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			   http://www.springframework.org/schema/context
+	           http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	           http://www.springframework.org/schema/tx
+	           http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	           http://www.springframework.org/schema/aop
+	           http://www.springframework.org/schema/aop/spring-aop-4.0.xsd ">
+
+	<bean id="mysqlDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://rdsf2x1751m74069n1l1o.mysql.rds.aliyuncs.com/bbtu_test?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="user" value="bbtu" />
+		<property name="password" value="cake4you" /><!--  1qazxsw2-->
+		<property name="autoCommitOnClose" value="true" />
+ 
+		<property name="initialPoolSize" value="10" />
+
+		<property name="minPoolSize" value="5" />
+
+		<property name="maxPoolSize" value="150" />
+
+		<property name="maxIdleTime" value="20000" />
+
+		<property name="idleConnectionTestPeriod" value="60" />
+
+		<property name="acquireIncrement" value="16" />
+
+		 <property name="maxStatements" value="1024" />
+
+		<property name="maxStatementsPerConnection" value="16" />
+
+		<property name="acquireRetryAttempts" value="3" />
+
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="mysqlDataSource" />
+  
+		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />
+		<!--  <property name="mapperLocations" value="classpath*:mybatis/sqlmap/**/*Mapper.xml" /> -->
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.bbdig.mapper" />
+	</bean>
+
+	<aop:aspectj-autoproxy/>
+	
+	<!-- 事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mysqlDataSource" />
+	</bean>
+	
+	<tx:annotation-driven  transaction-manager="transactionManager" />
+	
+		<!-- mongodb morphia -->
+	<bean id="mongoServerAddress" class="com.mongodb.ServerAddress"  >
+        <constructor-arg value="127.0.0.1"/>
+        <constructor-arg value="27017"/>
+    </bean>
+	
+    <bean id="mongoCredential" factory-method="createMongoCRCredential" class="com.mongodb.MongoCredential">
+        <constructor-arg value="root"/>
+        <constructor-arg value="admin"/>
+        <constructor-arg value="cake4you"/>
+    </bean>
+	
+    <bean id="mongoClient" destroy-method="close" class="com.mongodb.MongoClient">
+        <constructor-arg ref="mongoServerAddress"/>
+        <constructor-arg>
+            <list>
+                <ref bean="mongoCredential"/>
+            </list>
+        </constructor-arg>
+    </bean>
+	
+	<bean id="morphia" class="org.mongodb.morphia.Morphia" />
+	
+    <bean id="mongoDataStore" factory-bean="morphia" factory-method="createDatastore" class="org.mongodb.morphia.DatastoreImpl">
+        <constructor-arg ref="mongoClient"/>
+        <constructor-arg value="liker"/>
+    </bean>
+	
+</beans>

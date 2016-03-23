@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+  <appender name="CONSOLE"  class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+    	<param name="ConversionPattern" value="[%d{yyyyMMdd HH:mm:ss} %-5p] [%l] - %m%n" />
+    </layout>
+  </appender>
+  
+  <appender name="APPENDER_ADMIN"  class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="../logs/abms_admin.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+	      <param name="ConversionPattern" value="[%d{yyyyMMdd HH:mm:ss} %-5p] [%t][%C:%L] - %m%n" />
+		</layout>
+  </appender>
+  
+   <appender name="APPENDER_PUSH_INFO" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="../logs/51zhui_info.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'_info.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+	      <param name="ConversionPattern" value="[%d{yyyyMMdd HH:mm:ss} %-5p] [%t][%C:%L] - %m%n" />
+		</layout>
+   </appender>
+   
+   <appender name="APPENDER_PUSH_ERROR" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="../logs/51zhui_error.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'_error.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+	      <param name="ConversionPattern" value="[%d{yyyyMMdd HH:mm:ss} %-5p] [%t][%C:%L] - %m%n" />
+		</layout>
+   </appender>
+   
+   <appender name="ERROR_EMAIL" class="org.apache.log4j.net.SMTPAppender">
+        <param name="BufferSize" value="10"/>
+        <param name="From" value="jacy_white@163.com" />
+        <param name="SMTPHost" value="smtp.163.com" />
+		<layout class="org.apache.log4j.PatternLayout">
+	      <param name="ConversionPattern" value="%m%n" />
+		</layout>
+   </appender>
+   
+   <appender name="MAIL" class="org.apache.log4j.net.SMTPAppender">  
+        <!-- 日志的错误级别 -->
+		<param name="threshold" value="error" />  
+		<!-- 缓存文件大小，日志达到512K时发送Email -->  
+		<param name="BufferSize" value="512" /><!-- 单位K -->  
+		<param name="From" value="53733522@qq.com" />  
+		<param name="SMTPHost" value="smtp.163.com" />  
+		<param name="Subject" value="我要追错误信息" />  
+		<param name="To" value="53733522@qq.com" />  
+		<param name="SMTPUsername" value="123" />  
+		<param name="SMTPPassword" value="123" />  
+		<layout class="org.apache.log4j.PatternLayout">  
+		 <param name="ConversionPattern"  
+		  value="[framework] %d - %c -%-4r [%t] %-5p %c %x - %m%n" />  
+		</layout>  
+	</appender> 
+   <appender name="ADMIN_LOG" class="org.apache.log4j.AsyncAppender">
+	  	<param name="BufferSize" value="256"/>   
+		<appender-ref ref="CONSOLE"/>
+	</appender>  
+  <category name="com.bbdig" additivity="false">
+		<level class="org.apache.log4j.Level" value="debug" />
+		<appender-ref ref="CONSOLE"/>	
+  </category>
+  <category name="common.util" additivity="false">
+		<level class="org.apache.log4j.Level" value="debug" />
+		<appender-ref ref="CONSOLE"/>
+  </category>
+  <!-- 
+  <root>
+	<level class="org.apache.log4j.Level" value="error" />
+	<appender-ref ref="CONSOLE" />
+  </root>
+   -->
+</log4j:configuration>
