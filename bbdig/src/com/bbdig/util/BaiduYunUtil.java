@@ -7,11 +7,16 @@ public class BaiduYunUtil {
 	public static boolean validTitle(String title) {
 
 		if (StringUtils.isBlank(title) //
-				&& StringUtils.contains(title, "请输入提取") && StringUtils.contains(title, "百度云升级")
-				&& StringUtils.contains(title, "页面无法找到") && StringUtils.contains(title, "error 404")
-				&& StringUtils.contains(title, "页面不存在") && StringUtils.contains(title, "文件已取消")
-				&& StringUtils.contains(title, "链接不存在") && StringUtils.contains(title, ".jpg")
-				&& StringUtils.contains(title, ".gif") && StringUtils.contains(title, "302")
+				|| StringUtils.contains(title, "请输入提取") || StringUtils.contains(title, "百度云升级")
+				|| StringUtils.contains(title, "页面无法找到") || StringUtils.contains(title, "error 404")
+				|| StringUtils.contains(title, "页面不存在") || StringUtils.contains(title, "文件已取消")
+				|| StringUtils.contains(title, "链接不存在") || StringUtils.contains(title, ".jpg")
+				|| StringUtils.contains(title, ".gif") || StringUtils.contains(title, "302")
+				|| StringUtils.contains(title, "微信")|| StringUtils.containsIgnoreCase(title, "v信")
+				|| StringUtils.containsIgnoreCase(title, "weixin")
+				|| StringUtils.contains(title, "百度云 客户端下载")
+				|| StringUtils.contains(title, "505")
+				|| StringUtils.equals(title, "百度云 个人专辑 - 云上的日子 你我共享")
 				// && StringUtils.contains(info.title, "not allowed")
 		) {
 			return false;
@@ -35,10 +40,10 @@ public class BaiduYunUtil {
 				&& !url.startsWith("http://pan.baidu.com/disk/home#") // 无意义
 				&& !url.equals("http://pan.baidu.com/disk/home") // 无意义
 		) {
-			return false;
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 	
 	public static String trimTitle(String title) {
@@ -56,6 +61,11 @@ public class BaiduYunUtil {
 		title = title.replaceAll("ttmeiju.com", ""); // 去掉重复字符串
 		title = title.replaceAll("微博", ""); // 去掉重复字符串
 		title = title.replaceAll("@", ""); // 去掉重复字符串
+		title = title.replaceAll("【", " ");
+		title = title.replaceAll("】", " ");
+		title = StringUtils.replace(title, "_免费高速下载|百度云", "")  ;//【百度云】
+		title = StringUtils.replace(title, "免费高速下载|百度云", "")  ;//【百度云】
+		title = StringUtils.removeEnd(title, "_");
 		
 		return title;
 	}

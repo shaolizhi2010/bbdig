@@ -2,18 +2,25 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
+<!-- 
 	<plugins>
-		<plugin interceptor="com.bbdig.core.interceptor.PaginationInterceptor">
-			<property name="dialect" value="mysql" />
-			<property name="pageSqlId" value=".*[Pagination selectPage].*" />
-		</plugin>
+	
 		<plugin interceptor="com.bbdig.core.interceptor.PrintSqlInterceptor">
 		</plugin>
-	</plugins>
+	
+	</plugins> -->
 	<mappers>
 		<mapper resource="mybatis/sqlmap/UserMapper.xml" />
 		<mapper resource="mybatis/sqlmap/PostMapper.xml" />
 		<mapper resource="mybatis/sqlmap/PostViewMapper.xml" />
-	 </mappers>
+		<mapper resource="mybatis/sqlmap/HotKeywordsViewMapper.xml" />
+		<mapper resource="mybatis/sqlmap/KeywordsBlockMapper.xml" />
+		<mapper resource="mybatis/sqlmap/KeywordsMapper.xml" />
+		<mapper resource="mybatis/sqlmap/HotKeywords1dViewMapper.xml" />
+		<mapper resource="mybatis/sqlmap/BadWordMapper.xml"/>
+		<mapper resource="mybatis/sqlmap/FollowKeywordMapper.xml"/>
+		<mapper resource="mybatis/sqlmap/GoogledighistoryMapper.xml"/>
+		<mapper resource="mybatis/sqlmap/TiebadighistoryMapper.xml"/>
+		<mapper resource="mybatis/sqlmap/TrustDomainMapper.xml" />
+	</mappers>
 </configuration>

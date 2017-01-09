@@ -9,32 +9,90 @@
 	           http://www.springframework.org/schema/tx
 	           http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 	           http://www.springframework.org/schema/aop
-	           http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-	           ">
+	           http://www.springframework.org/schema/aop/spring-aop-4.0.xsd  ">
 
-	
-	 
 	<bean id="tiebaBdyTaskBean" class="com.bbdig.timer.TiebaBdyTask">
 	</bean>
-	
 	<bean id="tiebaBdyTask"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="tiebaBdyTaskBean" />
 		<property name="targetMethod" value="run" />
 		<!--  <property name="concurrent" value="false" />  -->
 	</bean>
-	 
-
 	<bean id="tiebaBdyTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="tiebaBdyTask" />
-		<property name="cronExpression" value="0 0 0/1 * * ? " /><!-- 每天凌晨一点触发一次 0 43 16 * * ?-->
+		<property name="cronExpression" value="0 0/3 * * * ? " />
+	</bean>
+	
+	
+	<bean id="resourceCheckTaskBean" class="com.bbdig.timer.ResourceCheckTask">
+	</bean>
+	<bean id="resourceCheckTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="resourceCheckTaskBean" />
+		<property name="targetMethod" value="run" />
+		<!--  <property name="concurrent" value="false" />  -->
+	</bean> 
+ 	<bean id="resourceCheckTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="resourceCheckTask" />
+		<property name="cronExpression" value="0 5 4 * * ? " /><!-- 秒 分 时 日 月 年-->
+	</bean>
+	
+	
+	
+	<bean id="keywordTaskBean" class="com.bbdig.timer.KeywordTask">
+	</bean>
+	<bean id="keywordTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="keywordTaskBean" />
+		<property name="targetMethod" value="run" />
+		<!--  <property name="concurrent" value="false" />  -->
+	</bean>
+ 	<bean id="keywordTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="keywordTask" />
+		<property name="cronExpression" value="0 50 0/1 * * ? " /><!-- 秒 分 时 日 月 年-->
+	</bean>
+	
+	<bean id="googleDiggerTaskBean" class="com.bbdig.timer.GoogleDiggerTask">
+	</bean>
+	<bean id="googleDiggerTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="googleDiggerTaskBean" />
+		<property name="targetMethod" value="run" />
+		<!--  <property name="concurrent" value="false" />  -->
+	</bean>
+ 	<bean id="googleDiggerTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="googleDiggerTask" />
+		<property name="cronExpression" value="0 0/11 * * * ? " /><!-- 秒 分 时 日 月 年-->
+	</bean>
+	
+	<!-- 初始化域名白名单 --> 
+	<bean id="trustDomainInitTaskBean" class="com.bbdig.timer.TrustDomainInitTask">
+	</bean>
+	
+	<bean id="trustDomainInitTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="trustDomainInitTaskBean" />
+		<property name="targetMethod" value="run" />
+		<!--  <property name="concurrent" value="false" />  -->
 	</bean>
  
-	
+
+	<bean id="trustDomainInitTaskTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="trustDomainInitTask" />
+		<property name="startDelay" value="1000" />   
+        <property name="repeatInterval" value="14400000" />   
+	</bean>
+		
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="tiebaBdyTaskTrigger" />
+				<ref bean="trustDomainInitTaskTrigger" />
+				<ref bean="tiebaBdyTaskTrigger" />	  <!---->  
+				 <ref bean="resourceCheckTaskTrigger" /> 	<!--	 -->  
+				<ref bean="keywordTaskTrigger" /> <!--		 -->  
+				<!--<ref bean="googleDiggerTaskTrigger" />  --> 
+				 
 			</list>
 		</property>
 		<property name="autoStartup" value="true" />

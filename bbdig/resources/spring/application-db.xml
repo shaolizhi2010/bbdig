@@ -15,35 +15,38 @@
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl"
-			value="jdbc:mysql://rdsf2x1751m74069n1l1o.mysql.rds.aliyuncs.com/bbtu_test?useUnicode=true&amp;characterEncoding=UTF-8" />
+			value="jdbc:mysql://rdsf2x1751m74069n1l1o.mysql.rds.aliyuncs.com/bbtu_prd?useUnicode=true&amp;characterEncoding=UTF-8" />
 		<property name="user" value="bbtu" />
-		<property name="password" value="cake4you" /><!--  1qazxsw2-->
-		<property name="autoCommitOnClose" value="true" />
- 
-		<property name="initialPoolSize" value="10" />
+		<property name="password" value="cake4you" /><!-- 1qazxsw2 -->
+		<property name="autoCommitOnClose" value="false" />
 
-		<property name="minPoolSize" value="5" />
+		<property name="initialPoolSize" value="2" />
 
-		<property name="maxPoolSize" value="150" />
+		<property name="minPoolSize" value="2" />
 
-		<property name="maxIdleTime" value="20000" />
+		<property name="maxPoolSize" value="5" />
 
-		<property name="idleConnectionTestPeriod" value="60" />
+		<property name="maxIdleTime" value="10" />
 
-		<property name="acquireIncrement" value="16" />
+		<property name="idleConnectionTestPeriod" value="5" />
 
-		 <property name="maxStatements" value="1024" />
+		<property name="acquireIncrement" value="3" />
+
+		<property name="maxStatements" value="100" />
 
 		<property name="maxStatementsPerConnection" value="16" />
 
 		<property name="acquireRetryAttempts" value="3" />
-
+		<!--c3p0是异步操作的，缓慢的JDBC操作通过帮助进程完成。扩展这些操作可以有效的提升性能 通过多线程实现多个操作同时被执行。Default: 
+			3 -->
+		<property name="numHelperThreads" value="3" />
 	</bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="mysqlDataSource" />
-  
+
 		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />
-		<!--  <property name="mapperLocations" value="classpath*:mybatis/sqlmap/**/*Mapper.xml" /> -->
+		<!-- <property name="mapperLocations" value="classpath*:mybatis/sqlmap/**/*Mapper.xml" 
+			/> -->
 	</bean>
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
@@ -53,42 +56,45 @@
 		<property name="basePackage" value="com.bbdig.mapper" />
 	</bean>
 
-	<aop:aspectj-autoproxy/>
-	
+	<aop:aspectj-autoproxy />
+
 	<!-- 事务 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="mysqlDataSource" />
 	</bean>
-	
-	<tx:annotation-driven  transaction-manager="transactionManager" />
-	
-		<!-- mongodb morphia -->
-	<bean id="mongoServerAddress" class="com.mongodb.ServerAddress"  >
-        <constructor-arg value="127.0.0.1"/>
-        <constructor-arg value="27017"/>
-    </bean>
-	
-    <bean id="mongoCredential" factory-method="createMongoCRCredential" class="com.mongodb.MongoCredential">
-        <constructor-arg value="root"/>
-        <constructor-arg value="admin"/>
-        <constructor-arg value="cake4you"/>
-    </bean>
-	
-    <bean id="mongoClient" destroy-method="close" class="com.mongodb.MongoClient">
-        <constructor-arg ref="mongoServerAddress"/>
-        <constructor-arg>
-            <list>
-                <ref bean="mongoCredential"/>
-            </list>
-        </constructor-arg>
-    </bean>
-	
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- mongodb morphia -->
+	<!-- 
+	<bean id="mongoServerAddress" class="com.mongodb.ServerAddress">
+		<constructor-arg value="123.56.123.54" />
+		<constructor-arg value="27017" />
+	</bean>
+
+	<bean id="mongoCredential" factory-method="createMongoCRCredential"
+		class="com.mongodb.MongoCredential">
+		<constructor-arg value="root" />
+		<constructor-arg value="admin" />
+		<constructor-arg value="cake4you" />
+	</bean>
+
+	<bean id="mongoClient" destroy-method="close" class="com.mongodb.MongoClient">
+		<constructor-arg ref="mongoServerAddress" />
+		<constructor-arg>
+			<list>
+				<ref bean="mongoCredential" />
+			</list>
+		</constructor-arg>
+	</bean>
+
 	<bean id="morphia" class="org.mongodb.morphia.Morphia" />
-	
-    <bean id="mongoDataStore" factory-bean="morphia" factory-method="createDatastore" class="org.mongodb.morphia.DatastoreImpl">
-        <constructor-arg ref="mongoClient"/>
-        <constructor-arg value="liker"/>
-    </bean>
-	
+
+	<bean id="mongoDataStore" factory-bean="morphia" factory-method="createDatastore"
+		class="org.mongodb.morphia.DatastoreImpl">
+		<constructor-arg ref="mongoClient" />
+		<constructor-arg value="tgy" />
+	</bean>
+	 -->
 </beans>

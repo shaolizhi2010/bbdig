@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+ <!-- 
+<classPathEntry location="D:/workspaces/like/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/bbdig/WEB-INF/lib/mysql-connector-java-5.1.10.jar" />
+<classPathEntry location="D:/workspaces/like/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/bbdig/WEB-INF/lib/mybatis-generator-core-1.3.2.jar" />
+ -->
+ 
+  <context id="context1" >
+  
+  <!-- 
+   <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+   -->
+   
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://rdsf2x1751m74069n1l1o.mysql.rds.aliyuncs.com:3306/bbtu_prd" userId="bbtu" password="cake4you" />
+ 	
+    <javaModelGenerator targetPackage="com.bbdig.entity" targetProject="bbdig" />
+    <sqlMapGenerator targetPackage="mybatis.sqlmap" targetProject="bbdig/resources" />
+    <javaClientGenerator targetPackage="com.bbdig.mapper" targetProject="bbdig" type="XMLMAPPER" />
+    
+    
+    <!-- <table schema="abmstest" tableName="web_user" ></table>
+    <table schema="abmstest" tableName="user_friend" ></table>
+    <table schema="abmstest" tableName="user_image" ></table>
+    <table schema="abmstest" tableName="user_label" ></table>
+    <table schema="abmstest" tableName="chat_record" ></table>
+    <table schema="abmstest" tableName="user_message" ></table>
+    <table schema="abmstest" tableName="user_score" ></table> -->
+<!--     <table tableName="tbl_user" >
+    	<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table> -->
+<!--     <table tableName="tbl_group_account" >
+    	<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+    
+    <table tableName="tbl_group_account_detail" >
+    	<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+    
+    <table tableName="payrule" >
+    	<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table> -->
+    
+<!--      <table tableName="tbl_clean_order" >
+    	<generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table> -->
+<!--     <table tableName="service_items" >
+    	<generatedKey column="Service_Items_ID" sqlStatement="MySql" identity="false"/>
+    </table> -->
+    
+    <!-- <generatedKey column="id" sqlStatement="MySql" identity="true"/>  -->
+    <table tableName="trust_domain">
+    <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+  </context>
+</generatorConfiguration>

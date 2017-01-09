@@ -33,12 +33,4 @@
 
 	<!-- web 切面 -->
 
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/api/user/**" />
-			<bean class="com.bbdig.core.interceptor.CheckUserLoginInterceptor" />
-		</mvc:interceptor>
-
-	</mvc:interceptors>
-
 </beans>

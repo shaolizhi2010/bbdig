@@ -12,6 +12,10 @@
     <param-name>log4jRefreshInterval</param-name>
     <param-value>600000</param-value>
   </context-param>
+  <context-param>
+     <param-name>webAppRootKey</param-name>
+     <param-value>bbdig</param-value>
+ </context-param>
   <display-name>framework</display-name>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
