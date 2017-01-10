@@ -15,11 +15,13 @@ public class TestMain {
 
 	public static void main(String[] args) {
 		
-		BttiantangsDigSeviceImpl dig = new BttiantangsDigSeviceImpl();
+		System.out.println(System.currentTimeMillis());
 		
-		
-		dig.digAndSave("http://www.bttiantangs.com/list/dianying/index.html", "电影");
-		
+//		BttiantangsDigSeviceImpl dig = new BttiantangsDigSeviceImpl();
+//		
+//		
+//		dig.digAndSave("http://www.bttiantangs.com/list/dianying/index.html", null);
+//		
 		
 		
 ///movie/38342.html

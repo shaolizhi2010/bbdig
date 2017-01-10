@@ -24,6 +24,19 @@
 		<property name="cronExpression" value="0 0/3 * * * ? " />
 	</bean>
 	
+	<bean id="bttiantangDigTaskBean" class="com.bbdig.timer.BTtiantangDigTask">
+	</bean>
+	<bean id="bttiantangDigTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="bttiantangDigTaskBean" />
+		<property name="targetMethod" value="run" />
+		<!--  <property name="concurrent" value="false" />  -->
+	</bean>
+	<bean id="bttiantangDigTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="bttiantangDigTask" />
+		<property name="cronExpression" value="0 0/3 * * * ? " />
+	</bean>
+	
 	
 	<bean id="resourceCheckTaskBean" class="com.bbdig.timer.ResourceCheckTask">
 	</bean>
@@ -88,7 +101,10 @@
 		<property name="triggers">
 			<list>
 				<ref bean="trustDomainInitTaskTrigger" />
-				<ref bean="tiebaBdyTaskTrigger" />	  <!---->  
+					<ref bean="tiebaBdyTaskTrigger" />	 
+				<!-- 
+				<ref bean="bttiantangDigTaskTrigger" />	   
+				 -->
 				 <ref bean="resourceCheckTaskTrigger" /> 	<!--	 -->  
 				<ref bean="keywordTaskTrigger" /> <!--		 -->  
 				<!--<ref bean="googleDiggerTaskTrigger" />  --> 

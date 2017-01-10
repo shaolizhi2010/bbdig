@@ -15,7 +15,7 @@
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl"
-			value="jdbc:mysql://rdsf2x1751m74069n1l1o.mysql.rds.aliyuncs.com/bbtu_prd?useUnicode=true&amp;characterEncoding=UTF-8" />
+			value="jdbc:mysql://rdsf2x1751m74069n1l1o.mysql.rds.aliyuncs.com/bbtu_test?useUnicode=true&amp;characterEncoding=UTF-8" />
 		<property name="user" value="bbtu" />
 		<property name="password" value="cake4you" /><!-- 1qazxsw2 -->
 		<property name="autoCommitOnClose" value="false" />

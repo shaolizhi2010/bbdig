@@ -12,7 +12,7 @@
    <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
    -->
    
-    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://rdsf2x1751m74069n1l1o.mysql.rds.aliyuncs.com:3306/bbtu_prd" userId="bbtu" password="cake4you" />
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://rdsf2x1751m74069n1l1o.mysql.rds.aliyuncs.com:3306/bt" userId="bbtu" password="cake4you" />
  	
     <javaModelGenerator targetPackage="com.bbdig.entity" targetProject="bbdig" />
     <sqlMapGenerator targetPackage="mybatis.sqlmap" targetProject="bbdig/resources" />
@@ -49,7 +49,7 @@
     </table> -->
     
     <!-- <generatedKey column="id" sqlStatement="MySql" identity="true"/>  -->
-    <table tableName="trust_domain">
+    <table tableName="link">
     <generatedKey column="id" sqlStatement="MySql" identity="true"/>
     </table>
   </context>

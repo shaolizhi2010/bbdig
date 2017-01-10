@@ -17,10 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbdig.core.pay.wxpay.MD5;
+import com.bbdig.entity.Link;
 import com.bbdig.entity.Post;
 import com.bbdig.entity.Tiebadighistory;
 import com.bbdig.entity.TiebadighistoryExample;
 import com.bbdig.entity.User;
+import com.bbdig.mapper.LinkMapper;
 import com.bbdig.mapper.TiebadighistoryMapper;
 import com.bbdig.service.PostService;
 import com.bbdig.service.TiebaBdyDigService;
@@ -52,6 +54,9 @@ public class TiebaBdyDigServiceImpl implements TiebaBdyDigService {
 	
 	@Autowired
 	PostService postService;
+	
+	@Autowired
+	LinkMapper linkMapper;
 	
 	@Autowired
 	UserService userService;
@@ -123,6 +128,10 @@ public class TiebaBdyDigServiceImpl implements TiebaBdyDigService {
 					PostDataUtil.setDomain(post);
 					
 					postService.insertSelective(post);
+					
+					//save link
+					saveLink(a.title, a.url, post.getId());
+					
 					
 					savedCount++;
 				} catch (Exception e) {
@@ -277,7 +286,26 @@ public class TiebaBdyDigServiceImpl implements TiebaBdyDigService {
 		}
 		return returnList;
 	}
+	
+	public void saveLink(String title, String url, Integer pID){
+		
+		try {
+			
+			Link link = new Link();
+			link.setCreatedate(new Date());
+			link.setPid(pID);
+			link.setTitle(title);
+			link.setUrl(url);
+			link.setMd5(MD5.MD5Encode(url));
+			link.setTs((int)System.currentTimeMillis());
 
+			linkMapper.insert(link);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 	public static void main(String[] args) {
 		//new TiebaBdyDigServiceImpl().digAndSave("资源-百度网盘");
 		// U.printList(list);

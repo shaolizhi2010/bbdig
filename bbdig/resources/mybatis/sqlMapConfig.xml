@@ -12,6 +12,7 @@
 	<mappers>
 		<mapper resource="mybatis/sqlmap/UserMapper.xml" />
 		<mapper resource="mybatis/sqlmap/PostMapper.xml" />
+		<mapper resource="mybatis/sqlmap/LinkMapper.xml" />
 		<mapper resource="mybatis/sqlmap/PostViewMapper.xml" />
 		<mapper resource="mybatis/sqlmap/HotKeywordsViewMapper.xml" />
 		<mapper resource="mybatis/sqlmap/KeywordsBlockMapper.xml" />
